@@ -27,6 +27,8 @@
         value: "{{ lookup('file', '{{ SSH_keys.public }}') }}"
       WireGuardPort:
         value: "{{ wireguard_port }}"
+      WireGuardObfusPort:
+        value: "{{ wireguard_obfus_port }}"
       vmSize:
         value: "{{ cloud_providers.azure.size }}"
       imageReferencePublisher:

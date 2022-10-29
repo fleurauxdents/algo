@@ -8,6 +8,9 @@
     "WireGuardPort": {
       "type": "int"
     },
+    "WireGuardObfusPort": {
+      "type": "int"
+    },
     "vmSize": {
       "type": "string"
     },
@@ -87,7 +90,7 @@
           {
             "name": "AllowWireGuard",
             "properties": {
-              "description": "Locks inbound down to ssh default port 22.",
+              "description": "Allow plain WireGuard.",
               "protocol": "Udp",
               "sourcePortRange": "*",
               "destinationPortRange": "[parameters('WireGuardPort')]",
@@ -95,6 +98,20 @@
               "destinationAddressPrefix": "*",
               "access": "Allow",
               "priority": 130,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "AllowWireGuardObfus",
+            "properties": {
+              "description": "Allow UDP to WireGuard obfuscation.",
+              "protocol": "Udp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "[parameters('WireGuardObfusPort')]",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 131,
               "direction": "Inbound"
             }
           }
