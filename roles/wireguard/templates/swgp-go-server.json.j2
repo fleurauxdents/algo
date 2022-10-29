@@ -1,0 +1,15 @@
+{
+    "servers": [
+        {
+            "name": "server",
+            "proxyListen": ":{{ wireguard_obfus_port }}",
+            "proxyMode": "{{ wireguard_obfus_mode }}",
+            "proxyPSK": "{{ swgp_go_psk }}",
+            "proxyFwmark": 0,
+            "wgEndpoint": "[::1]:{{ wireguard_port }}",
+            "wgFwmark": 0,
+            "mtu": {{ 1420 - reduce_mtu|int }},
+            "batchMode": ""
+        }
+    ]
+}

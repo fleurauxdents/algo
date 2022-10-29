@@ -5,7 +5,62 @@
     state: present
     update_cache: true
 
+- name: tar installed
+  apt:
+    name: tar
+    state: present
+
+- name: zstd installed
+  apt:
+    name: zstd
+    state: present
+
 - name: Set OS specific facts
   set_fact:
     service_name: wg-quick@{{ wireguard_interface }}
   tags: always
+
+- name: Get swgp-go
+  ansible.builtin.unarchive:
+    src: https://github.com/database64128/swgp-go/releases/download/v1.3.0/swgp-go-v1.3.0-linux-x86-64-v3.tar.zst
+    dest: /usr/bin
+    remote_src: yes
+
+- name: Generate swgp-go preshared key
+  command: wg genkey
+  register: swgp_go_psk_command
+
+- name: Set swgp-gp PSK as fact to be accessed elsewhere
+  set_fact:
+    swgp_go_psk: {{ swgp_go_psk_command.stdout }}
+  tags: always
+
+- name: Generate swgp-go client config
+  template:
+    src: swgp-go-client.json.j2
+    dest: "{{ wireguard_config_path }}/swgp-go-client.json"
+    mode: "0440"
+
+- name: Generate swgp-go server config to wg folder
+  template:
+    src: swgp-go-server.json.j2
+    dest: "{{ wireguard_config_path }}/swgp-go-server.json"
+    mode: "0440"
+
+- name: Generate swgp-go server config to /etc
+  template:
+    src: swgp-go-server.json.j2
+    dest: /etc/swgp-go/config.json
+    mode: "0440"
+
+- name: Get swgp-go systemd config
+  ansible.builtin.get_url:
+    url: https://github.com/database64128/swgp-go/blob/996e8fbe1ecf78fef6254c74ed5e5a3660dab4cf/docs/swgp-go.service
+    dest: /etc/systemd/system/swgp-go.service
+    mode: '0440'
+
+- name: swgp-go enabled and started
+  ansible.builtin.service:
+    name: swgp-go
+    state: started
+    enabled: true
