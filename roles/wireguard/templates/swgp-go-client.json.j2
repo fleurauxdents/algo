@@ -8,7 +8,7 @@
             "proxyMode": "{{ wireguard_obfus_mode }}",
             "proxyPSK": "{{ swgp_go_psk }}",
             "proxyFwmark": 0,
-            "mtu": {{ 1420 - reduce_mtu|int }},
+            "mtu": 1500,
             "batchMode": ""
         }
     ]

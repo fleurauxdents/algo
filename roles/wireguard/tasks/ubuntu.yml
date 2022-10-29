@@ -32,7 +32,7 @@
 
 - name: Set swgp-gp PSK as fact to be accessed elsewhere
   set_fact:
-    swgp_go_psk: {{ swgp_go_psk_command.stdout }}
+    swgp_go_psk: "{{ swgp_go_psk_command.stdout }}"
   tags: always
 
 - name: Generate swgp-go client config

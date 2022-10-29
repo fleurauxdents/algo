@@ -8,7 +8,7 @@
             "proxyFwmark": 0,
             "wgEndpoint": "[::1]:{{ wireguard_port }}",
             "wgFwmark": 0,
-            "mtu": {{ 1420 - reduce_mtu|int }},
+            "mtu": 1500,
             "batchMode": ""
         }
     ]
