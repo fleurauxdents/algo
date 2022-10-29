@@ -51,7 +51,13 @@
   delegate_to: localhost
   become: false
 
-- name: Generate swgp-go server config to server /etc
+- name: Ensure the required directories exist
+  ansible.builtin.file:
+    path: /etc/swgp-go
+    state: directory
+    mode: "0660"
+
+- name: Generate swgp-go server config to server
   template:
     src: swgp-go-server.json.j2
     dest: /etc/swgp-go/config.json
