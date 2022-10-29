@@ -10,6 +10,9 @@ Parameters:
   WireGuardPort:
     Type: String
     Default: '51820'
+  WireGuardObfusPort:
+    Type: String
+    Default: '51819'
   SshPort:
     Type: String
     Default: '4160'
@@ -40,6 +43,13 @@ Resources:
             CommonName: WireGuard
             FromPort: !Ref WireGuardPort
             ToPort: !Ref WireGuardPort
+            Protocol: udp
+          - AccessDirection: inbound
+            Cidrs: ['0.0.0.0/0']
+            Ipv6Cidrs: ['::/0']
+            CommonName: WireGuardObfus
+            FromPort: !Ref WireGuardObfusPort
+            ToPort: !Ref WireGuardObfusPort
             Protocol: udp
           - AccessDirection: inbound
             Cidrs: ['0.0.0.0/0']
