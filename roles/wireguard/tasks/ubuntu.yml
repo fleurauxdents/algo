@@ -65,7 +65,7 @@
 
 - name: Get swgp-go systemd config
   ansible.builtin.get_url:
-    url: https://github.com/database64128/swgp-go/blob/996e8fbe1ecf78fef6254c74ed5e5a3660dab4cf/docs/swgp-go.service
+    url: https://raw.githubusercontent.com/database64128/swgp-go/main/docs/swgp-go.service
     dest: /etc/systemd/system/swgp-go.service
     mode: '0440'
 
