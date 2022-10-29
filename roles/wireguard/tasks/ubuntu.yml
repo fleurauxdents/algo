@@ -35,19 +35,21 @@
     swgp_go_psk: "{{ swgp_go_psk_command.stdout }}"
   tags: always
 
-- name: Generate swgp-go client config
+- name: Generate swgp-go client config to local
   template:
     src: swgp-go-client.json.j2
     dest: "{{ wireguard_config_path }}/swgp-go-client.json"
     mode: "0440"
+  delegate_to: localhost
 
-- name: Generate swgp-go server config to wg folder
+- name: Generate swgp-go server config to local
   template:
     src: swgp-go-server.json.j2
     dest: "{{ wireguard_config_path }}/swgp-go-server.json"
     mode: "0440"
+  delegate_to: localhost
 
-- name: Generate swgp-go server config to /etc
+- name: Generate swgp-go server config to server /etc
   template:
     src: swgp-go-server.json.j2
     dest: /etc/swgp-go/config.json
