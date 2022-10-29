@@ -4,7 +4,7 @@
             "name": "client",
             "wgListen": ":50000",
             "wgFwmark": 0,
-            "proxyEndpoint": "{{ IP_subject_alt_name }}:{{ wireguard_port }}",
+            "proxyEndpoint": "{{ IP_subject_alt_name }}:{{ wireguard_obfus_port }}",
             "proxyMode": "{{ wireguard_obfus_mode }}",
             "proxyPSK": "{{ swgp_go_psk }}",
             "proxyFwmark": 0,
